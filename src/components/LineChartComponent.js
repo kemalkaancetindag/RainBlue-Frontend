@@ -61,7 +61,7 @@ function LineChartComponent() {
 
 
     return (
-        <div style={{ width: "20vw", height:"150px !important"}} className='mx-5'>
+        <div style={{ width: "20vw", height:"150px !important"}} className='mx-5 border rounded'>
             <Line options={options} data={data} />
         </div>
 
