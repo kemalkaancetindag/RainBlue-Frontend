@@ -1,6 +1,30 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../context/UserContext";
+
 
 
 function NavbarComponent() {
+    
+    
+
+    const logOut = () => {
+        localStorage.removeItem("a4b8c16")
+        localStorage.removeItem("avatar")
+        localStorage.removeItem("log_date")
+        localStorage.removeItem("user_id")
+        localStorage.removeItem("username")
+
+
+        
+
+        window.location.reload()
+    }
+
+
+
+
+
     return (
         <nav className="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
             <a className="navbar-brand">
@@ -14,8 +38,43 @@ function NavbarComponent() {
                         <li className="nav-item"><a className="nav-link" href="/announcements">Announcements</a></li>
                         <li className="nav-item"><a className="nav-link" href="https://discord.gg/rainblue">Discord</a></li>
                         <li className="nav-item"><a className="nav-link" href="https://discord.com/oauth2/authorize?client_id={{.BotID}}&scope=bot&permissions=3201">Invite Bot</a></li>
+                        {
+                            localStorage.getItem("a4b8c16") ? (
+                                <li className="nav-item  d-flex">
+                                    <div className="d-flex flex-row align-items-center justify-content-around" style={{ width: "300px" }}>
 
-                        <li className="nav-item"><a className="nav-link" href="/login">Login</a></li>
+                                        {
+                                            localStorage.getItem("avatar") ? (
+                                                <div style={{ width: "40px", height: "40px", backgroundColor: "gray", borderRadius: "20px", backgroundImage: `url(https://cdn.discordapp.com/avatars/${localStorage.getItem("user_id")}/${localStorage.getItem("avatar")}.png)`, backgroundSize: "cover" }} />
+                                            ) : (
+                                                <div style={{ width: "40px", height: "40px", backgroundColor: "gray", borderRadius: "20px", backgroundImage: `url(/dc_user_null_image.png)`, backgroundSize: "cover" }} />
+                                            )
+                                        }
+
+
+
+                                        <div className="d-flex flex-row">
+                                            {localStorage.getItem("username")}
+                                        </div>
+                                        
+                                        <button style={{height:"30px", backgroundColor:"white", border:"none", color:"rgb(29, 117, 189"}} onClick={logOut}>
+                                            <i className="fas fa-sign-out-alt fa-xl" ></i>
+                                        </button>
+
+
+                                    </div>
+
+
+                                </li>
+                            ) :
+                                (
+                                    <li className="nav-item"><a className="nav-link" href="https://discord.com/oauth2/authorize?client_id=979020208561876992&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=code&scope=identify" target="_self">Login</a></li>
+                                )
+                        }
+
+
+
+
 
                     </ul>
                 </div>

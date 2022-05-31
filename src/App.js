@@ -11,21 +11,26 @@ import IndexPage from './pages/IndexPage';
 import NavbarComponent from './components/NavbarComponent';
 import FooterComponent from './components/FooterComponent';
 import GuildProfilePage from './pages/GuildProfilePage';
+import UserProvider, { UserContext } from './context/UserContext';
 
 
 function App() {
   return (
     <>
-      <NavbarComponent />
-      <Router>
+      <UserProvider>
+        <NavbarComponent  />
+        <Router>
 
-        <Routes>
-          <Route path="/" element={<IndexPage />} />
-          <Route path="/guild-profile" element={<GuildProfilePage />} />
-        </Routes>
+          <Routes>
 
-      </Router>
-      
+            <Route path="/" element={<IndexPage />} />
+
+            <Route path="/guild" element={<GuildProfilePage />} />
+          </Routes>
+
+        </Router>
+      </UserProvider>
+
     </>
 
   );
