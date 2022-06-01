@@ -19,7 +19,7 @@ export default function Announcements() {
                     announcements ? (
                         <>
                             {announcements.map(ann => (
-                                <a href={`/announcement-detail?id=${ann.SqlId}`} style={{textDecoration:"none" ,color:"black"}}>
+                                <a href={`/announcement-detail?id=${ann.SqlId}`} style={{textDecoration:"none" ,color:"black"}} key={ann.SqlId}>
                                     <div className="d-flex flex-row justify-content-center" style={{ width: "100%", height: "100%", marginTop: "30px" }}>
                                         <div style={{ width: "60%", height: "200px", borderRadius: "10px" }} className="border border-2">
                                             <div className="d-flex flex-row" style={{ height: "100%", width: "100%" }}>

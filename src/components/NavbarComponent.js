@@ -1,6 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../context/UserContext";
 
 
 
@@ -37,7 +34,7 @@ function NavbarComponent() {
                         <li className="nav-item"><a className="nav-link active" href="/">Home</a></li>
                         <li className="nav-item"><a className="nav-link" href="/announcements">Announcements</a></li>
                         <li className="nav-item"><a className="nav-link" href="https://discord.gg/rainblue">Discord</a></li>
-                        <li className="nav-item"><a className="nav-link" href="https://discord.com/oauth2/authorize?client_id={{.BotID}}&scope=bot&permissions=3201">Invite Bot</a></li>
+                        <li className="nav-item"><a className="nav-link" href="https://discord.com/oauth2/authorize?client_id=976141006389014588&scope=bot&permissions=3201">Invite Bot</a></li>
                         {
                             localStorage.getItem("a4b8c16") ? (
                                 <li className="nav-item  d-flex">

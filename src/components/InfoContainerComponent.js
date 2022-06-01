@@ -23,7 +23,7 @@ function InfoContainerComponent({componentData, componentTitle}) {
             </div>
             {
                 Object.keys(componentData).map( key => (
-                    <InfoFlexRows title={key} value={componentData[key]}/>
+                    <InfoFlexRows key={key} title={key} value={componentData[key]}/>
                 ))
             }
             

@@ -1,4 +1,4 @@
-import { Tooltip } from "bootstrap"
+
 
 
 
@@ -15,7 +15,7 @@ function InfoBadgeComponent({badges}) {
                 </div>
                 <div className="d-flex flex-row overflow-auto">
                     {badges.map(badge => (
-                        <div className="d-flex flex-column align-items-center" style={{ marginRight:"5px"}}>
+                        <div className="d-flex flex-column align-items-center" style={{ marginRight:"5px"}} key={badge.SqlId}>
                             <img style={{ height: "25px", width: "25px", borderRadius:"5px"}} src={`http://localhost:9010/static/${badge.badgeIcon}`}/>
                             <div>
                                 {badge.badgeName}
