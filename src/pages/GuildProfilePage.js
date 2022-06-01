@@ -20,6 +20,7 @@ function GuildProfilePage() {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     const [newCommentContent, setNewCommentContent] = useState()
+    const [badges, setBadges] = useState([])
 
 
 
@@ -38,6 +39,10 @@ function GuildProfilePage() {
                     setComments(res.data.data)
                 })
                 .catch(err => console.log(err))
+
+            axios.get(`http://localhost:9011/get-badges?guildId=${guild_id}`)
+            .then(res => setBadges(res.data))
+            .catch(err => console.log(err))
         }
 
 
@@ -152,7 +157,7 @@ function GuildProfilePage() {
                             }
 
                         </div>
-                        <InfoBadgeComponent />
+                        <InfoBadgeComponent badges={badges}/>
                     </>
 
                 ) : (

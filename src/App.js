@@ -12,6 +12,8 @@ import NavbarComponent from './components/NavbarComponent';
 import FooterComponent from './components/FooterComponent';
 import GuildProfilePage from './pages/GuildProfilePage';
 import UserProvider, { UserContext } from './context/UserContext';
+import Announcements from './pages/AnnouncementsPage';
+import AnnouncementDetail from './pages/AnnouncementDetail';
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
             <Route path="/" element={<IndexPage />} />
 
             <Route path="/guild" element={<GuildProfilePage />} />
+            <Route path="/announcements" element={<Announcements />} />
+            <Route path="/announcement-detail" element={<AnnouncementDetail />} />
           </Routes>
 
         </Router>
