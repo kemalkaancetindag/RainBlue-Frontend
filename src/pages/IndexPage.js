@@ -16,7 +16,7 @@ function IndexPage() {
 
     useEffect(() => {
 
-        axios.get("http://localhost:9011/get-guilds")
+        axios.get(`${WEB_API_URL}/get-guilds`)
             .then(res => {
                 var sorted_guilds = res.data.sort(compare_active_users)
 

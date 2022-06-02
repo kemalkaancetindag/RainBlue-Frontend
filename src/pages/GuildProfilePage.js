@@ -27,20 +27,20 @@ function GuildProfilePage() {
     useEffect(() => {
         var guild_id = searchParams.get("id")
         if (guild_id) {
-            axios.get(`http://localhost:9011/get-guild-profile?guild_id=${guild_id}`)
+            axios.get(`${WEB_API_URL}/get-guild-profile?guild_id=${guild_id}`)
                 .then(res => {
                     setRawGuild(res.data)
                 })
                 .catch(err => console.log(err))
 
-            axios.get(`http://localhost:9011/comments?guild_id=${guild_id}`)
+            axios.get(`${WEB_API_URL}/comments?guild_id=${guild_id}`)
                 .then(res => {
                     setAverageStar(res.data.averageStarPoint)
                     setComments(res.data.data)
                 })
                 .catch(err => console.log(err))
 
-            axios.get(`http://localhost:9011/get-badges?guildId=${guild_id}`)
+            axios.get(`${WEB_API_URL}/get-badges?guildId=${guild_id}`)
                 .then(res => setBadges(res.data))
                 .catch(err => console.log(err))
         }
@@ -90,10 +90,10 @@ function GuildProfilePage() {
             userId: localStorage.getItem("user_id")
         }
 
-        axios.post("http://localhost:9011/comment", commentData)
+        axios.post(`${WEB_API_URL}/comment`, commentData)
             .then(res => console.log(res))
             .then(res => {
-                axios.get(`http://localhost:9011/comments?guild_id=${guild_id}`)
+                axios.get(`${WEB_API_URL}/comments?guild_id=${guild_id}`)
                     .then(res => {
                         setAverageStar(res.data.averageStarPoint)
                         setComments(res.data.data)
