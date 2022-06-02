@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import NavbarComponent from "../components/NavbarComponent"
+import { ADMIN_API_URL, WEB_API_URL } from "../constants"
+
 
 
 export default function Announcements() {

@@ -2,6 +2,9 @@ import { useState } from "react"
 
 
 
+
+
+
 function NavbarComponent({authCode}) {
     const [isLoggined, setIsLoggined] = useState()
     const [username, setUsername] = useState()

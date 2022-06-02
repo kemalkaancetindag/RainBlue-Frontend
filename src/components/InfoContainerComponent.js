@@ -1,5 +1,6 @@
 
 
+
 const InfoFlexRows = ({title, value}) => {
     return (
         <div className="d-flex flex-row justify-content-between px-3 my-1">

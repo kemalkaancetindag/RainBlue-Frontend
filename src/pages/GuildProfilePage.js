@@ -5,6 +5,8 @@ import { useSearchParams } from "react-router-dom"
 import InfoBadgeComponent from "../components/InfoBadgeComponent"
 import InfoContainerComponent from "../components/InfoContainerComponent"
 import NavbarComponent from "../components/NavbarComponent"
+import { WEB_API_URL } from "../constants"
+
 
 
 

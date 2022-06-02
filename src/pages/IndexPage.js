@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import NavbarComponent from "../components/NavbarComponent";
+import { WEB_API_URL } from "../constants";
+
 
 
 function IndexPage() {
