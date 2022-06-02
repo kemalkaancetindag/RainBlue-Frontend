@@ -1,8 +1,18 @@
+import { useState } from "react"
 
 
 
-function NavbarComponent() {
-    
+function NavbarComponent({authCode}) {
+    const [isLoggined, setIsLoggined] = useState()
+    const [username, setUsername] = useState()
+    const [image, setImage] = useState()
+    useState(() => {
+        
+        
+        setIsLoggined(localStorage.getItem("a4b8c16"))
+        setUsername(localStorage.getItem("username"))
+        setImage(localStorage.getItem("avatar"))
+    }, [])
     
 
     const logOut = () => {
@@ -36,12 +46,12 @@ function NavbarComponent() {
                         <li className="nav-item"><a className="nav-link" href="https://discord.gg/rainblue">Discord</a></li>
                         <li className="nav-item"><a className="nav-link" href="https://discord.com/oauth2/authorize?client_id=976141006389014588&scope=bot&permissions=3201">Invite Bot</a></li>
                         {
-                            localStorage.getItem("a4b8c16") ? (
+                            isLoggined ? (
                                 <li className="nav-item  d-flex">
                                     <div className="d-flex flex-row align-items-center justify-content-around" style={{ width: "300px" }}>
 
                                         {
-                                            localStorage.getItem("avatar") ? (
+                                            image ? (
                                                 <div style={{ width: "40px", height: "40px", backgroundColor: "gray", borderRadius: "20px", backgroundImage: `url(https://cdn.discordapp.com/avatars/${localStorage.getItem("user_id")}/${localStorage.getItem("avatar")}.png)`, backgroundSize: "cover" }} />
                                             ) : (
                                                 <div style={{ width: "40px", height: "40px", backgroundColor: "gray", borderRadius: "20px", backgroundImage: `url(/dc_user_null_image.png)`, backgroundSize: "cover" }} />
@@ -51,7 +61,7 @@ function NavbarComponent() {
 
 
                                         <div className="d-flex flex-row">
-                                            {localStorage.getItem("username")}
+                                            {username}
                                         </div>
                                         
                                         <button style={{height:"30px", backgroundColor:"white", border:"none", color:"rgb(29, 117, 189"}} onClick={logOut}>

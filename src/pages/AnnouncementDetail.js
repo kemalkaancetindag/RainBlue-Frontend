@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import NavbarComponent from "../components/NavbarComponent";
 
 
 export default function AnnouncementDetail() {
@@ -23,6 +24,7 @@ export default function AnnouncementDetail() {
 
     return (
         <div style={{ marginTop: "100px", width: "100vw", height: "100vh" }}>
+            <NavbarComponent  />
             <div className="d-flex flex-column" style={{ width: "100%", height: "100%" }}>
                 {
                     announcement ? (

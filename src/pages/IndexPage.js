@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
+import NavbarComponent from "../components/NavbarComponent";
 
 
 function IndexPage() {
@@ -134,7 +135,7 @@ function IndexPage() {
 
     return (
         <>
-
+            <NavbarComponent />
             <main className="page landing-page">
                 <section className="clean-block clean-hero" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1517315003714-a071486bd9ea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YWVzdGhldGljJTIwd2FsbHBhcGVyfGVufDB8fDB8fA%3D%3D&w=1000&q=80)", color: "rgba(9, 162, 255, 0.65)" }}>
                     <div className="text">

@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <UserProvider>
-        <NavbarComponent  />
+        
         <Router>
 
           <Routes>
