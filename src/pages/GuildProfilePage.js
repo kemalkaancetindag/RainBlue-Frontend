@@ -15,7 +15,9 @@ function GuildProfilePage() {
     const [isComments, setIsComments] = useState(false)
     const [guildInfo, setGuildInfo] = useState()
     const [voiceInfo, setVoiceInfo] = useState()
-    const [rawGuild, setRawGuild] = useState()
+    const [activeUsers, setActiveUsers]= useState()
+    const [bannerInfo, setBannerInfo] = useState()
+    
     const [comments, setComments] = useState()
     const [averageStar, setAverageStar] = useState()
     const [searchParams, setSearchParams] = useSearchParams();
@@ -28,12 +30,31 @@ function GuildProfilePage() {
 
     useEffect(() => {
         var guild_id = searchParams.get("id")
+
+
+
+
         if (guild_id) {
-            axios.get(`${WEB_API_URL}/get-guild-profile?guild_id=${guild_id}`)
-                .then(res => {
-                    setRawGuild(res.data)
-                })
-                .catch(err => console.log(err))
+            axios.get(`http://localhost:3000/guild-info?id=${guild_id}`)
+            .then(res => {
+                if(res.data.totalOnline === 0){
+                    axios.get(`http://localhost:3000/guild-info?id=${guild_id}`)
+                    .then(secRes => {
+                        setVoiceInfo(secRes.data.voiceInfo)
+                        setGuildInfo(secRes.data.guildInfo)
+                        setActiveUsers(secRes.data.totalOnline)
+                        setBannerInfo(secRes.data.bannerInfo)
+                    })
+                }
+                else{
+                    setVoiceInfo(res.data.voiceInfo)
+                    setGuildInfo(res.data.guildInfo)
+                    setActiveUsers(res.data.totalOnline)
+                    setBannerInfo(res.data.bannerInfo)
+                }
+
+                console.log(res.data)
+            })
 
             axios.get(`${WEB_API_URL}/comments?guild_id=${guild_id}`)
                 .then(res => {
@@ -50,34 +71,7 @@ function GuildProfilePage() {
 
     }, [])
 
-    useEffect(() => {
-
-        if (rawGuild) {
-            var guildInfo = {}
-            var voiceInfo = {}
-
-            guildInfo["id"] = rawGuild["id"]
-            guildInfo["bot count"] = rawGuild["BotCount"]
-            guildInfo["owner id"] = rawGuild["owner_id"]
-            guildInfo["region"] = rawGuild["region"]
-            guildInfo["member count"] = rawGuild["BotCount"] + rawGuild["MuteCount"] + rawGuild["DeafCount"] + rawGuild["VoiceCount"]
-
-            voiceInfo["mute count"] = rawGuild["MuteCount"]
-            voiceInfo["deaf count"] = rawGuild["DeafCount"]
-            voiceInfo["voice count"] = rawGuild["VoiceCount"]
-            voiceInfo["bot count"] = rawGuild["BotCount"]
-
-
-
-            setGuildInfo(guildInfo)
-            setVoiceInfo(voiceInfo)
-
-
-
-
-
-        }
-    }, [rawGuild])
+    
 
     const sendNewComment = () => {
 
@@ -112,14 +106,14 @@ function GuildProfilePage() {
             <div style={{ width: "100vw", marginTop: "100px", height: "100vh" }}>
 
                 {
-                    rawGuild ? (
+                    bannerInfo ? (
                         <>
-                            <div style={{ width: "65vw", height: "500px", backgroundImage: `url(https://cdn.discordapp.com/banners/${rawGuild["id"]}/${rawGuild["banner"]}.png?size=1024)`, marginTop: "5%", marginBottom: "2%", position: "relative", backgroundSize: "cover" }} className="mx-auto rounded">
-                                <div style={{ width: "230px", height: "230px", zIndex: "3", position: "absolute", bottom: "20px", left: "20px", backgroundImage: `url(https://cdn.discordapp.com/icons/${rawGuild["id"]}/${rawGuild["icon"]}.gif)`, backgroundSize: "cover" }} className="rounded-circle border-5" />
+                            <div style={{ width: "65vw", height: "500px", backgroundImage: `url(${bannerInfo.guildBanner})`, marginTop: "5%", marginBottom: "2%", position: "relative", backgroundSize: "cover" }} className="mx-auto rounded">
+                                <div style={{ width: "230px", height: "230px", zIndex: "3", position: "absolute", bottom: "20px", left: "20px", backgroundImage: `url(${bannerInfo.guildIcon})`, backgroundSize: "cover" }} className="rounded-circle border-5" />
 
 
                                 <div style={{ width: "100%", height: "120px", backgroundColor: "rgb(29, 117, 189)", position: "absolute", bottom: "0", opacity: "0.9", paddingLeft: "300px" }} className="d-flex flex-row align-items-center">
-                                    <span style={{ color: "white", fontSize: "35px" }}><b>{rawGuild["name"]}</b></span>
+                                    <span style={{ color: "white", fontSize: "35px" }}><b>{bannerInfo.guildName}</b></span>
                                 </div>
 
 
@@ -157,7 +151,7 @@ function GuildProfilePage() {
                                                         <b>Active User Count</b>
                                                     </div>
                                                     <div>
-                                                        <b style={{ fontSize: "30px", color: "rgb(29, 117, 189)" }}>{voiceInfo["voice count"]}</b>
+                                                        <b style={{ fontSize: "30px", color: "rgb(29, 117, 189)" }}>{activeUsers}</b>
                                                     </div>
                                                     <div>
                                                         <b>Badge Count</b>

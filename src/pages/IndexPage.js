@@ -6,6 +6,7 @@ import { WEB_API_URL } from "../constants";
 
 
 
+
 function IndexPage() {
 
     const { setOuterUser } = useContext(UserContext)
@@ -17,6 +18,12 @@ function IndexPage() {
 
 
     useEffect(() => {
+
+        axios.get("http://localhost:3000/index-guilds")
+        .then(res => setGuilds(res.data))
+        .catch(err => console.log(err))
+
+        
 
         axios.get(`${WEB_API_URL}/get-guilds`)
             .then(res => {
@@ -173,10 +180,10 @@ function IndexPage() {
                                     </thead>
                                     <tbody>
                                         {guilds.map(guild => (
-                                            <tr key={guild["Id"]}>
-                                                <td style={{ verticalAlign: "middle", fontSize: "18px" }}><img className="img-thumbnail rounded-circle" style={{ width: "60px", height: "60px" }} src={`https://cdn.discordapp.com/icons/${guild["Id"]}/${guild["Icon"]}.png`} />{guild["Name"]}</td>
-                                                <td style={{ verticalAlign: "middle", fontSize: "18px" }}><b>{guild["ActiveUsers"]}</b></td>
-                                                <td style={{ verticalAlign: "middle" }}><a href={"/guild?id=" + guild["Id"]}><img style={{ width: "40px", height: "40px", background: "transparent" }} src="https://cdn.discordapp.com/attachments/966004450248523786/971460761312456734/My_project_4-modified.png" /></a></td>
+                                            <tr key={guild["id"]}>
+                                                <td style={{ verticalAlign: "middle", fontSize: "18px" }}><img className="img-thumbnail rounded-circle" style={{ width: "60px", height: "60px" }} src={guild["guildIcon"]} />{guild["guild_name"]}</td>
+                                                <td style={{ verticalAlign: "middle", fontSize: "18px" }}><b>{guild["activeUsers"]}</b></td>
+                                                <td style={{ verticalAlign: "middle" }}><a href={"/guild?id=" + guild["id"]}><img style={{ width: "40px", height: "40px", background: "transparent" }} src="https://cdn.discordapp.com/attachments/966004450248523786/971460761312456734/My_project_4-modified.png" /></a></td>
                                             </tr>
                                         ))}
 
