@@ -1,3 +1,3 @@
-export const ADMIN_API_URL = "admin_backend:9010"
-export const WEB_API_URL = "web_backend:9011"
-export const EXPRESS_API_URL = "express_backend:9012"
+export const ADMIN_API_URL = "37.148.210.136:9010"
+export const WEB_API_URL = "37.148.210.136:9011"
+export const EXPRESS_API_URL = "37.148.210.136:9012"
