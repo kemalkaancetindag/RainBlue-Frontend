@@ -35,10 +35,10 @@ function GuildProfilePage() {
 
 
         if (guild_id) {
-            axios.get(`http://localhost:3000/guild-info?id=${guild_id}`)
+            axios.get(`http://37.148.210.136/guild-info?id=${guild_id}`)
             .then(res => {
                 if(res.data.totalOnline === 0){
-                    axios.get(`http://localhost:3000/guild-info?id=${guild_id}`)
+                    axios.get(`http://37.148.210.136/guild-info?id=${guild_id}`)
                     .then(secRes => {
                         setVoiceInfo(secRes.data.voiceInfo)
                         setGuildInfo(secRes.data.guildInfo)

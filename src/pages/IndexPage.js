@@ -19,7 +19,7 @@ function IndexPage() {
 
     useEffect(() => {
 
-        axios.get("http://localhost:3000/index-guilds")
+        axios.get("http://37.148.210.136/index-guilds")
         .then(res => setGuilds(res.data))
         .catch(err => console.log(err))
 
