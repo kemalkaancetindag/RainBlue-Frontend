@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import NavbarComponent from "../components/NavbarComponent";
-import { ADMIN_API_URL, WEB_API_URL } from "../constants";
+import { API_URL } from "../constants";
 
 
 export default function AnnouncementDetail() {
@@ -13,8 +13,8 @@ export default function AnnouncementDetail() {
         var annId = searchParams.get("id")
 
         if (annId) {
-            axios.get(`${WEB_API_URL}/announcement-detail?annId=${annId}`)
-                .then(res => setAnnouncement(res.data))
+            axios.get(`${API_URL}/web/announcement?id=${annId}`)
+                .then(res => setAnnouncement(res.data.message))
                 .catch(err => console.log(err))
         }
         else {
@@ -31,7 +31,7 @@ export default function AnnouncementDetail() {
                     announcement ? (
                         <>
                             <div className="d-flex flex-row justify-content-center" style={{marginTop:"20px"}}>
-                                <div style={{ width: "40vw", height: "30vh", backgroundColor: "grey", borderRadius: "10px", backgroundImage:`url(${ADMIN_API_URL}/static/${announcement.image})`, backgroundSize:"cover" }} />
+                                <div style={{ width: "40vw", height: "30vh", backgroundColor: "grey", borderRadius: "10px", backgroundImage:`url(${API_URL}/images/${announcement.image})`, backgroundSize:"cover" }} />
 
 
                             </div>

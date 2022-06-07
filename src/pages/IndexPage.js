@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import NavbarComponent from "../components/NavbarComponent";
-import { WEB_API_URL } from "../constants";
+import { API_URL } from "../constants";
 
 
 
@@ -19,19 +19,20 @@ function IndexPage() {
 
     useEffect(() => {
 
-        axios.get("http://37.148.210.136/index-guilds")
-        .then(res => setGuilds(res.data))
+        axios.get(`${API_URL}/web/index-guilds`)
+        .then(res => {
+            console.log(res.data)
+            if(res.data.status){
+                setGuilds(res.data.message)                               
+            }
+            
+            
+
+        })
         .catch(err => console.log(err))
 
         
-
-        axios.get(`${WEB_API_URL}/get-guilds`)
-            .then(res => {
-                var sorted_guilds = res.data.sort(compare_active_users)
-
-                setGuilds(sorted_guilds)
-            })
-            .catch(err => console.log(err))
+   
 
         setAuthCode(window.location.href.split("=")[1])
     }, [])
@@ -40,15 +41,8 @@ function IndexPage() {
         var access_token = localStorage.getItem("a4b8c16")
 
         if (access_token === undefined || access_token === null) {
-            console.log("burda")
-            if (authCode) {
-                var data = {
-                    client_id: "",
-                    client_secret: "f-IfOsepEOC4s3F2pYVExQZXJX44_Lze",
-                    code: authCode,
-                    grant_type: "authorization_code",
-                    redirect_uri: "http://localhost:3000"
-                }
+            
+            if (authCode) {             
                 const params = new URLSearchParams();
                 params.append('client_id', "979020208561876992");
                 params.append('client_secret', "f-IfOsepEOC4s3F2pYVExQZXJX44_Lze");
@@ -132,16 +126,7 @@ function IndexPage() {
     }, [isUserSet])
 
 
-    function compare_active_users(a, b) {
-        if (a.ActiveUsers < b.ActiveUsers) {
-            return 1;
-        }
-        if (a.ActiveUsers > b.ActiveUsers) {
-            return -1;
-        }
-        return 0;
-    }
-
+  
     return (
         <>
             <NavbarComponent />

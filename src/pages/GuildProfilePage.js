@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom"
 import InfoBadgeComponent from "../components/InfoBadgeComponent"
 import InfoContainerComponent from "../components/InfoContainerComponent"
 import NavbarComponent from "../components/NavbarComponent"
-import { WEB_API_URL } from "../constants"
+import { API_URL } from "../constants"
 
 
 
@@ -35,37 +35,23 @@ function GuildProfilePage() {
 
 
         if (guild_id) {
-            axios.get(`http://37.148.210.136/guild-info?id=${guild_id}`)
-            .then(res => {
-                if(res.data.totalOnline === 0){
-                    axios.get(`http://37.148.210.136/guild-info?id=${guild_id}`)
-                    .then(secRes => {
-                        setVoiceInfo(secRes.data.voiceInfo)
-                        setGuildInfo(secRes.data.guildInfo)
-                        setActiveUsers(secRes.data.totalOnline)
-                        setBannerInfo(secRes.data.bannerInfo)
-                    })
-                }
-                else{
-                    setVoiceInfo(res.data.voiceInfo)
-                    setGuildInfo(res.data.guildInfo)
-                    setActiveUsers(res.data.totalOnline)
-                    setBannerInfo(res.data.bannerInfo)
+            axios.get(`${API_URL}/web/guild-profile?guildId=${guild_id}`)
+            .then(res => {             
+                if(res.data.status){
+                    setGuildInfo(res.data.message.guildInfo)
+                    setVoiceInfo(res.data.message.voiceInfo)
+                    setBannerInfo(res.data.message.bannerInfo)
+                    setBadges(res.data.message.badges)
+                    setActiveUsers(res.data.message.activeUsers)
+                    setComments(res.data.message.comments)
+                    setAverageStar(res.data.message.averageStarPoint.toFixed(2))
+                    console.log(res.data.message)
                 }
 
                 console.log(res.data)
             })
-
-            axios.get(`${WEB_API_URL}/comments?guild_id=${guild_id}`)
-                .then(res => {
-                    setAverageStar(res.data.averageStarPoint)
-                    setComments(res.data.data)
-                })
-                .catch(err => console.log(err))
-
-            axios.get(`${WEB_API_URL}/get-badges?guildId=${guild_id}`)
-                .then(res => setBadges(res.data))
-                .catch(err => console.log(err))
+          
+           
         }
 
 
@@ -77,22 +63,22 @@ function GuildProfilePage() {
 
         var guild_id = searchParams.get("id")
         var commentData = {
-            guildId: guild_id,
-            createdAt: Date.now(),
+            guildId: guild_id,            
             content: newCommentContent,
-            starPoint: rating,
+            star: rating,
             username: localStorage.getItem("username"),
             userImage: localStorage.getItem("userImage"),
             userId: localStorage.getItem("user_id")
         }
 
-        axios.post(`${WEB_API_URL}/comment`, commentData)
+        axios.post(`${API_URL}/web/comment`, commentData)
             .then(res => console.log(res))
             .then(res => {
-                axios.get(`${WEB_API_URL}/comments?guild_id=${guild_id}`)
+                axios.get(`${API_URL}/web/comments?guildId=${guild_id}`)
                     .then(res => {
-                        setAverageStar(res.data.averageStarPoint)
-                        setComments(res.data.data)
+                        setAverageStar(res.data.message.averageStarPoint.toFixed(2))
+                        console.log(res.data)
+                        setComments(res.data.message.comments)
                     })
                     .catch(err => console.log(err))
             })

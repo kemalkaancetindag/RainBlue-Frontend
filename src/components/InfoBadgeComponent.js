@@ -18,10 +18,10 @@ function InfoBadgeComponent({badges}) {
                 </div>
                 <div className="d-flex flex-row overflow-auto">
                     {badges.map(badge => (
-                        <div className="d-flex flex-column align-items-center" style={{ marginRight:"5px"}} key={badge.SqlId}>
-                            <img style={{ height: "25px", width: "25px", borderRadius:"5px"}} src={`${ADMIN_API_URL}/static/${badge.badgeIcon}`}/>
+                        <div className="d-flex flex-column align-items-center" style={{ marginRight:"5px"}} key={badge._id}>
+                            <img style={{ height: "25px", width: "25px", borderRadius:"5px"}} src={`/images/${badge.badgeIcon}`}/>
                             <div>
-                                {badge.badgeName}
+                                {badge.name}
                             </div> 
                         </div>
                             
