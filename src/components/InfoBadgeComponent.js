@@ -1,4 +1,4 @@
-import { ADMIN_API_URL } from "../constants"
+import { ADMIN_API_URL, API_URL } from "../constants"
 
 
 
@@ -19,7 +19,7 @@ function InfoBadgeComponent({badges}) {
                 <div className="d-flex flex-row overflow-auto">
                     {badges.map(badge => (
                         <div className="d-flex flex-column align-items-center" style={{ marginRight:"5px"}} key={badge._id}>
-                            <img style={{ height: "25px", width: "25px", borderRadius:"5px"}} src={`/images/${badge.image}`}/>
+                            <img style={{ height: "25px", width: "25px", borderRadius:"5px"}} src={`${API_URL}/images/${badge.image}`}/>
                             <div>
                                 {badge.name}
                             </div> 
