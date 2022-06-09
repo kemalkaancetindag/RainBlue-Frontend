@@ -18,11 +18,11 @@ export default function Callback(){
             if (authCode) {
                 
                 const params = new URLSearchParams();
-                params.append('client_id', "979020208561876992");
-                params.append('client_secret', "f-IfOsepEOC4s3F2pYVExQZXJX44_Lze");
+                params.append('client_id', "976141006389014588");
+                params.append('client_secret', "5Ypsbvx_6PlZfCo3bW-VtDR7XeMLrNii");
                 params.append('grant_type', 'authorization_code');
                 params.append('code', authCode);
-                params.append('redirect_uri', "http://localhost:3000/callback");
+                params.append('redirect_uri', "http://rain.blue/callback");
 
                 
                
