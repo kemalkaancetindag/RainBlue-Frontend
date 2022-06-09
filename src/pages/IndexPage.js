@@ -18,21 +18,26 @@ function IndexPage() {
 
 
     useEffect(() => {
-
+        if (!guilds) {
+            setGuilds(JSON.parse(localStorage.getItem('cached')))
+        }
         axios.get(`${API_URL}/web/index-guilds`)
-        .then(res => {
-            console.log(res.data)
-            if(res.data.status){
-                setGuilds(res.data.message)                               
-            }
-            
-            
+            .then(res => {
+                console.log(res.data)
+                if (res.data.status) {
+                    setGuilds(res.data.message)
+                    var stringData = JSON.stringify(res.data.message)
+                    localStorage.setItem('cached', stringData)
 
-        })
-        .catch(err => console.log(err))
+                }
 
-        
-   
+
+
+            })
+            .catch(err => console.log(err))
+
+
+
 
         setAuthCode(window.location.href.split("=")[1])
     }, [])
@@ -41,8 +46,8 @@ function IndexPage() {
         var access_token = localStorage.getItem("a4b8c16")
 
         if (access_token === undefined || access_token === null) {
-            
-            if (authCode) {             
+
+            if (authCode) {
                 const params = new URLSearchParams();
                 params.append('client_id', "979020208561876992");
                 params.append('client_secret', "f-IfOsepEOC4s3F2pYVExQZXJX44_Lze");
@@ -66,7 +71,7 @@ function IndexPage() {
 
 
 
-                
+
 
 
 
@@ -126,7 +131,7 @@ function IndexPage() {
     }, [isUserSet])
 
 
-  
+
     return (
         <>
             <NavbarComponent />
