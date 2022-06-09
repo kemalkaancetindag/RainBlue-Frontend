@@ -13,6 +13,8 @@ import GuildProfilePage from './pages/GuildProfilePage';
 import UserProvider, { UserContext } from './context/UserContext';
 import Announcements from './pages/AnnouncementsPage';
 import AnnouncementDetail from './pages/AnnouncementDetail';
+import Callback from './pages/Callback';
+import SetLogin from './pages/SetLogin';
 
 
 function App() {
@@ -25,7 +27,8 @@ function App() {
           <Routes>
 
             <Route path="/" element={<IndexPage />} />
-
+            <Route path="/callback" element={<Callback />} />
+            <Route path="/set-user" element={<SetLogin />} />
             <Route path="/guild" element={<GuildProfilePage />} />
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/announcement-detail" element={<AnnouncementDetail />} />

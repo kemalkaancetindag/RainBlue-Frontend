@@ -18,117 +18,31 @@ function IndexPage() {
 
 
     useEffect(() => {
+        if(!localStorage.getItem("logged")){
+            window.location.href = "/set-user"
+        }
+        
         if (!guilds) {
             setGuilds(JSON.parse(localStorage.getItem('cached')))
         }
         axios.get(`${API_URL}/web/index-guilds`)
-            .then(res => {
-                console.log(res.data)
+            .then(res => {                
                 if (res.data.status) {
                     setGuilds(res.data.message)
                     var stringData = JSON.stringify(res.data.message)
                     localStorage.setItem('cached', stringData)
 
                 }
-
-
-
             })
             .catch(err => console.log(err))
 
 
 
 
-        setAuthCode(window.location.href.split("=")[1])
+        
     }, [])
 
-    useEffect(() => {
-        var access_token = localStorage.getItem("a4b8c16")
 
-        if (access_token === undefined || access_token === null) {
-
-            if (authCode) {
-                const params = new URLSearchParams();
-                params.append('client_id', "979020208561876992");
-                params.append('client_secret', "f-IfOsepEOC4s3F2pYVExQZXJX44_Lze");
-                params.append('grant_type', 'authorization_code');
-                params.append('code', authCode);
-                params.append('redirect_uri', "http://localhost:3000");
-
-                fetch("https://discord.com/api/v10/oauth2/token", {
-                    method: 'POST',
-                    body: params,
-                    headers: {
-                        "Content-type": "application/x-www-form-urlencoded"
-                    },
-                })
-                    .then(res => res.json())
-                    .then(res => {
-                        localStorage.setItem("a4b8c16", res["access_token"])
-                        setIsUserSet(true)
-                    })
-                    .catch(err => console.log(err))
-
-
-
-
-
-
-
-            }
-
-        }
-        else {
-            setIsUserSet(true)
-        }
-
-
-
-    }, [authCode])
-
-    useEffect(() => {
-
-        if (isUserSet) {
-
-            var accessToken = localStorage.getItem("a4b8c16")
-            console.log(accessToken)
-            if (accessToken !== undefined || accessToken !== null) {
-                console.log("geldi")
-                fetch('https://discord.com/api/users/@me', {
-                    headers: {
-                        authorization: `Bearer ${accessToken}`,
-                    },
-                })
-                    .then(result => result.json())
-                    .then(response => {
-                        if (response.code !== 0) {
-                            console.log(response)
-                            localStorage.setItem("user_id", response.id)
-                            localStorage.setItem("username", response.username)
-                            localStorage.setItem("avatar", response.avatar)
-                            localStorage.setItem("log_date", Date.now())
-                            setOuterUser(response)
-
-                        }
-
-
-                    })
-                    .catch(console.error);
-
-
-
-            }
-
-
-
-
-        }
-
-
-
-
-
-    }, [isUserSet])
 
 
 
