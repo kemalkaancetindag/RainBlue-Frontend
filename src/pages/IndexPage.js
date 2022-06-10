@@ -27,7 +27,7 @@ function IndexPage() {
         .then(response => {
             var ids = response.data.message
             console.log(ids)
-            axios.get(`${GO_API}:9000/`)
+            axios.get(`${GO_API}/`)
             .then(res => {
                 console.log(res)
                 
