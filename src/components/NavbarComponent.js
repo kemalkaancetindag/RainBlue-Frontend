@@ -24,6 +24,7 @@ function NavbarComponent({authCode}) {
         localStorage.removeItem("log_date")
         localStorage.removeItem("user_id")
         localStorage.removeItem("username")
+        localStorage.setItem('logged',false)
 
 
         

@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import NavbarComponent from "../components/NavbarComponent";
-import { API_URL } from "../constants";
+import { API_URL, GO_API } from "../constants";
+import { compare } from "../utils/utils";
 
 
 
@@ -21,24 +22,27 @@ function IndexPage() {
         if(!localStorage.getItem("logged")){
             window.location.href = "/set-user"
         }
-        
-        if (!guilds) {
-            setGuilds(JSON.parse(localStorage.getItem('cached')))
-        }
-        axios.get(`${API_URL}/web/index-guilds`)
-            .then(res => {                
-                if (res.data.status) {
-                    setGuilds(res.data.message)
-                    var stringData = JSON.stringify(res.data.message)
-                    localStorage.setItem('cached', stringData)
 
-                }
+        axios.get(`${API_URL}/web/db-guilds`)
+        .then(response => {
+            var ids = response.data.message
+            console.log(ids)
+            axios.get(`${GO_API}:9000/`)
+            .then(res => {
+                console.log(res)
+                
+                var filteredGuilds = res.data.filter(g => ids.includes(g.id))
+                var sortedGuilds = filteredGuilds.sort(compare)
+                setGuilds(sortedGuilds)
             })
             .catch(err => console.log(err))
+        })
 
-
-
-
+        
+        
+               
+      
+       
         
     }, [])
 
