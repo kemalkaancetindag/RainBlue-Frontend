@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom"
 import InfoBadgeComponent from "../components/InfoBadgeComponent"
 import InfoContainerComponent from "../components/InfoContainerComponent"
 import NavbarComponent from "../components/NavbarComponent"
-import { API_URL } from "../constants"
+import { API_URL, GO_API } from "../constants"
 
 
 
@@ -40,15 +40,21 @@ function GuildProfilePage() {
                 if(res.data.status){
                     setGuildInfo(res.data.message.guildInfo)
                     setVoiceInfo(res.data.message.voiceInfo)
-                    setBannerInfo(res.data.message.bannerInfo)
-                    setBadges(res.data.message.badges)
-                    setActiveUsers(res.data.message.activeUsers)
+                    
+                    setBadges(res.data.message.badges)                    
                     setComments(res.data.message.comments)
                     setAverageStar(res.data.message.averageStarPoint.toFixed(2))
                     console.log(res.data.message)
                 }
 
                 console.log(res.data)
+            })
+
+            axios.get(`${GO_API}/guild-profile?guildId=${guild_id}`)
+            .then(res => {
+                console.log(res.data)
+                setBannerInfo(res.data.bannerInfo)
+                setActiveUsers(res.data.activeUsers)
             })
           
            
