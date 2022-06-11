@@ -55,7 +55,7 @@ function NavbarComponent({ authCode }) {
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNav" style={{flexGrow:"0 !important", marginRight:"6rem"}}>
+                <div className="collapse navbar-collapse justify-content-end" id="navbarNav" style={{ marginRight:"6rem"}}>
                     <ul className="navbar-nav">
 
 
